@@ -1,20 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { FC } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { UserContextProvider, useUserContext } from "./UserContext";
+import { LoginScreen } from "./screens/LoginScreen";
+import { HomeScreen } from "./screens/HomeScreen";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+const App: FC = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <UserContextProvider>
+      <NavigationContainer>
+        <AuthNavigator />
+      </NavigationContainer>
+    </UserContextProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const AuthNavigator: FC = () => {
+  const { user } = useUserContext();
+
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {user !== null ? (
+        <>
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Login" component={LoginScreen} />
+        </>
+      )}
+    </Stack.Navigator>
+  );
+};
+
+export default App;
