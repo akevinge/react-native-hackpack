@@ -10,9 +10,10 @@ const Stack = createNativeStackNavigator();
 const App: FC = () => {
   return (
     <UserContextProvider>
-      <NavigationContainer>
+      <LoginScreen />
+      {/* <NavigationContainer>
         <AuthNavigator />
-      </NavigationContainer>
+      </NavigationContainer> */}
     </UserContextProvider>
   );
 };

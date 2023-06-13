@@ -6,7 +6,7 @@ export interface InputProps extends TextInputProps {
 }
 
 export const Input: FC<InputProps> = ({ style, icon, ...props }) => {
-  const [isFocused, setIsFocused] = useState(false);
+  const [focused, setFocused] = useState(false);
 
   return icon ? (
     <View
@@ -16,13 +16,13 @@ export const Input: FC<InputProps> = ({ style, icon, ...props }) => {
         width: "100%",
       }}
     >
-      {icon(isFocused)}
+      {icon(focused)}
       <InnerInput
         {...props}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         style={{ alignSelf: "center", flex: 1 }}
-        focused={isFocused}
+        focused={focused}
       />
     </View>
   ) : (
